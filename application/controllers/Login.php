@@ -14,7 +14,7 @@ class Login extends CI_Controller {
 		$account = $this->input->post('account');
 		$password = $this->input->post('password');
 		if (!empty($account) and !empty($password)) {
-			$sql = 'SELECT * FROM  user WHERE account=? and password=?';
+			$sql = 'SELECT * FROM  users WHERE account=? and password=?';
 			$q = $this->db->query($sql, [$account, md5($password)]);
 			if ($q->num_rows() > 0) {
 				//   $r = $q->first_row('array');
@@ -27,13 +27,13 @@ class Login extends CI_Controller {
 		}
 
 		if ($r) {
-			echo '正確';
+			// echo '正確';
 		// $this->load->model('m_login');
 			// $this->m_login->AccountLogin($account);
 			// redirect('/layout_dashboard');
 		} else {
 			echo '錯誤';
-			// redirect('/loginpage');
+			redirect('/loginpage');
 		}
 
 		// echo base_url();

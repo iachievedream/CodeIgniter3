@@ -11,8 +11,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 <body>
 
 <div align="center">
-    <form action="login/register" id = form1 method="post">
-    <!-- <form action="login/sign_in" id = form1 method="post"> -->
+    <form action="login/sign_in" id = form1 method="post">
     <p>Login</p>
     <table border="1" wedth=200 align="center">
         <tr align="center" >

@@ -1,5 +1,5 @@
 <?php
-defined('BASEPATH') OR exit('No direct script access allowed');
+defined('BASEPATH') or exit('No direct script access allowed');
 ?><!DOCTYPE html>
 <html lang="en">
 <head>
@@ -11,8 +11,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 <body>
 
 <div align="center">
-    <form action="login1" id = form1 method="post">
-    <p>Login</p>
+    <form action="login/register" id = form1 method="post">
+    <p>register</p>
     <table border="1" wedth=200 align="center">
         <tr align="center" >
             <td>name</td>

@@ -6,6 +6,11 @@ defined('BASEPATH') or exit('No direct script access allowed');
 	<div class="row">
 		<div class="col">
             查詢待做
+			<!-- <button type="button" id="checkin">上班打卡</button>
+			<button type="button" id="checkout">下班打卡</button> -->
+			<input type="button" onclick="checkin()" value="上班打卡">
+			<input type="button" onclick="checkout()" value="下班打卡">
+
 		</div>
 	</div>
 	<div class="row">
@@ -37,3 +42,38 @@ defined('BASEPATH') or exit('No direct script access allowed');
 		</table>
 	</div>
 </div>
+
+<script type="text/javascript">
+function checkin(){
+	$.ajax({
+		url: '/Checkin/checkeIn/',
+		type: 'post',
+		data: {	},
+		dataType: 'json',
+		success: function(json) {
+			if(json['success']){
+				// $(obj).parent('div').remove();
+			}
+		},
+		error: function(xhr, ajaxOptions, thrownError) {
+			alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
+		}
+	});
+}
+function checkout(){
+	$.ajax({
+		url: '/Checkin/checkeOut/',
+		type: 'post',
+		data: {	},
+		dataType: 'json',
+		success: function(json) {
+			if(json['success']){
+				// $(obj).parent('div').remove();
+			}
+		},
+		error: function(xhr, ajaxOptions, thrownError) {
+			alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
+		}
+	});
+}
+</script>

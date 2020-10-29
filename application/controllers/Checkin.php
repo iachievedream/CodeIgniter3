@@ -20,7 +20,9 @@ class Checkin extends CI_Controller {
 		$date = date('Y-m-d');
 		$this->load->model('m_check');
 		$all_check = $this->m_check->getAllCheck();
-		// echo '<pre>';print_r($all_check);echo '</pre>';
+		// echo '<pre>';
+		// print_r($all_check);
+		// echo '</pre>';
 		$this->load->model('m_user');
 		foreach ($all_check as $k => $v) {
 			$all_user = $this->m_user->getUser($v['account']);
@@ -38,12 +40,14 @@ class Checkin extends CI_Controller {
 
 			$out_time = $v['out_time'];
 			$work_pm_end = $all_user['0']['work_pm_end'];
-			echo '打卡時間' . $out_time . ' 下班時間' . $work_pm_end . '<br>';
+			// echo '打卡時間' . $out_time . ' 下班時間' . $work_pm_end . '<br>';
 			if ($this->m_check->isCheckOutNormal($out_time, $work_pm_end)) {
 				$this->m_check->changeCheckOut($v['account'], $date, 2);
 			} else {
 				$this->m_check->changeCheckOut($v['account'], $date, 3);
 			}
+			$all_check[$k]['in_status'] = $this->m_check->getCheckStatus($v['in_status']);
+			$all_check[$k]['out_status'] = $this->m_check->getCheckStatus($v['out_status']);
 		}
 		$this->data['r'] = $all_check;
 		$this->data['title'] = '出勤系統';

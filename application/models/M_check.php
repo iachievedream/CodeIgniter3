@@ -52,7 +52,6 @@ class M_check extends CI_Model {
 		return $r;
 	}
 
-	// public function getCheck($account,$date){
 	public function getCheck($account) {
 		$sql = 'SELECT * FROM `check` WHERE account=?';
 		$q = $this->db->query($sql, $account);
@@ -123,6 +122,18 @@ class M_check extends CI_Model {
 		if ($this->db->affected_rows() > 0) {
 			//
 		}
+	}
+
+	public function getCheckStatus($id) {
+		$sql = 'SELECT `status_type` FROM `check_status` WHERE `id`=?';
+		$q = $this->db->query($sql, $id);
+		if ($q->num_rows() > 0) {
+			$r = $q->first_row();
+			$r = $r->status_type;
+		} else {
+			$r = false;
+		}
+		return $r;
 	}
 
 	/*

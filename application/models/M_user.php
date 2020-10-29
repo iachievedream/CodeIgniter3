@@ -12,8 +12,30 @@ class M_user extends CI_Model {
 	得到成員資料
 	*/
 
+	public function getAllUser() {
+		$sql = 'SELECT * FROM `users`';
+		$q = $this->db->query($sql);
+		if ($q->num_rows() > 0) {
+			$r = $q->result_array();
+		} else {
+			$r = false;
+		}
+		return $r;
+	}
+
+	public function getUser($account) {
+		$sql = 'SELECT * FROM `users` WHERE account=?' ;
+		$q = $this->db->query($sql, $account);
+		if ($q->num_rows() > 0) {
+			$r = $q->result_array();
+		} else {
+			$r = false;
+		}
+		return $r;
+	}
+
 	/*
-	 * 函數名稱
+     * 函數名稱
 	 * 說明
 	 * @param   $abc 		string
 	 * @return 	$r3[] = [$user_name, $empno, $r1, $r2];

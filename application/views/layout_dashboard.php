@@ -54,7 +54,9 @@ defined('BASEPATH') or exit('No direct script access allowed');
 	<!-- <link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.0/css/bootstrap.min.css"> -->
 	
 	<link rel="stylesheet" type="text/css" href="/assets/sb-admin2/vendor/fontawesome-free/css/all.min.css">
-	<link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+	<!-- <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet"> -->
+	<link type="text/css" rel="stylesheet" href="/assets/online/css.css" />
+
 	<link href="/assets/sb-admin2/css/sb-admin-2.css" rel="stylesheet">
 
 	<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
@@ -100,7 +102,9 @@ defined('BASEPATH') or exit('No direct script access allowed');
   <!-- End of Page Wrapper -->
 
 
-	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.0/js/bootstrap.min.js"></script>
+	<!-- <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.0/js/bootstrap.min.js"></script> -->
+	<script src="/assets/online/bootstrap.min.js"></script>
+
 
   <!-- Core plugin JavaScript-->
   <script src="/assets/sb-admin2/vendor/jquery-easing/jquery.easing.min.js"></script>

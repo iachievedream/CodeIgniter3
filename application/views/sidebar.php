@@ -29,11 +29,11 @@
 	</li>
 	<!-- Nav Item - Utilities Collapse Menu -->
 	<li class="nav-item">
-		<a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities" aria-expanded="true" aria-controls="collapseUtilities">
+		<a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#system" aria-expanded="true" aria-controls="system">
 			<i class="fas fa-fw fa-wrench"></i>
 			<span>系統</span>
 		</a>
-		<div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
+		<div id="system" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
 			<div class="bg-white py-2 collapse-inner rounded">
 				<a class="collapse-item" href="/log">記錄</a>
 				<a class="collapse-item" href="/permission">權限管理</a>

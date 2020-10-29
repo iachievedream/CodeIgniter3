@@ -10,14 +10,42 @@ class Checkin extends CI_Controller {
 		}
 	}
 
+	/*
+	先用getAllCheck抓到所有人的打卡資訊
+	再用打卡資訊中讀account做參數使用getAllUser取得正常上下班的時間，
+	兩個時間判斷是否正常上下班，在修改資料庫的數值
+	*/
+
 	public function index() {
 		$date = date('Y-m-d');
 		$this->load->model('m_check');
-		$check = $this->m_check->getAllCheck($date);
-		// echo '<pre>';
-		// print_r($check);
-		// echo '</pre>';
-		$this->data['r'] = $check;
+		$all_check = $this->m_check->getAllCheck();
+		// echo '<pre>';print_r($all_check);echo '</pre>';
+		$this->load->model('m_user');
+		foreach ($all_check as $k => $v) {
+			$all_user = $this->m_user->getUser($v['account']);
+			// echo '<pre>';print_r($all_user);echo '</pre>';
+			$in_time = $v['in_time'];
+			$work_am_start = $all_user['0']['work_am_start'];
+			// echo '打卡時間' . $in_time . ' 上班時間' . $work_am_start . '<br>';
+			if ($this->m_check->isCheckInNormal($in_time, $work_am_start)) {
+				// echo '上班正常';
+				$this->m_check->changeCheckIn($v['account'], $date, 2);
+			} else {
+				// echo '上班異常';
+				$this->m_check->changeCheckIn($v['account'], $date, 3);
+			}
+
+			$out_time = $v['out_time'];
+			$work_pm_end = $all_user['0']['work_pm_end'];
+			echo '打卡時間' . $out_time . ' 下班時間' . $work_pm_end . '<br>';
+			if ($this->m_check->isCheckOutNormal($out_time, $work_pm_end)) {
+				$this->m_check->changeCheckOut($v['account'], $date, 2);
+			} else {
+				$this->m_check->changeCheckOut($v['account'], $date, 3);
+			}
+		}
+		$this->data['r'] = $all_check;
 		$this->data['title'] = '出勤系統';
 		$this->data['content'] = 'check.php';
 		$this->load->view('layout_dashboard', $this->data);

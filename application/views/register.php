@@ -11,12 +11,12 @@ defined('BASEPATH') or exit('No direct script access allowed');
 <body>
 
 <div align="center">
-    <form action="login/register" id = form1 method="post">
+    <form action="register" id = form1 method="post">
     <p>register</p>
     <table border="1" wedth=200 align="center">
         <tr align="center" >
             <td>name</td>
-            <td ><input id="idname" type="text" name="name"/></td>
+            <td ><input id="idname" type="text" name="account"/></td>
         </tr>
         <tr align="center">
             <td >password</td>

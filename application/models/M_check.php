@@ -22,84 +22,107 @@ class M_check extends CI_Model {
 	更改下班打卡狀態changeCheckOut($account,$date,$in_status)
 
 	*/
-	public function isExist($account,$date,$in_time,$out_time){
+	public function isExist($account, $date, $in_time, $out_time) {
 		// $sql  =  "SELECT `in_time` FROM `check` WHERE ";
 		// $q    =  $this->db->query($sql);
 		// if($q->num_rows() > 0){
-	   	// 	$r = $q->first_row('array');
+		// 	$r = $q->first_row('array');
 		// }
 	}
-	public function createCheck($account,$date,$in_time,$out_time){
-		$sql  =  "INSERT INTO `check` (`account`,`date`,`in_time`,`out_time`) VALUES (?,?,?,?)";
-		$q    =  $this->db->query($sql,array($account,$date,$in_time,$out_time));
-		if($this->db->affected_rows()>0)
-		{
-			$r=true;
-		}else{
-			$r=false;
+
+	public function createCheck($account, $date, $in_time, $out_time) {
+		$sql = 'INSERT INTO `check` (`account`,`date`,`in_time`,`out_time`) VALUES (?,?,?,?)';
+		$q = $this->db->query($sql, [$account, $date, $in_time, $out_time]);
+		if ($this->db->affected_rows() > 0) {
+			$r = true;
+		} else {
+			$r = false;
 		}
 		return $r;
 	}
-	public function getAllCheck($date){
-		$sql  =  "SELECT * FROM `check`";
-		$q    =  $this->db->query($sql);
-		if($q->num_rows() > 0){
+
+	public function getAllCheck() {
+		$sql = 'SELECT * FROM `check`';
+		$q = $this->db->query($sql);
+		if ($q->num_rows() > 0) {
 			$r = $q->result_array();
-		}else{
-			$r=false;
+		} else {
+			$r = false;
 		}
 		return $r;
 	}
-	public function getCheck($account,$date){
-		$sql  =  "SELECT * FROM `check` WHERE account=?";
-		$q    =  $this->db->query($sql,$account);
-		if($q->num_rows() > 0){
+
+	// public function getCheck($account,$date){
+	public function getCheck($account) {
+		$sql = 'SELECT * FROM `check` WHERE account=?';
+		$q = $this->db->query($sql, $account);
+		if ($q->num_rows() > 0) {
 			$r = $q->result_array();
-		}else{
-			$r=false;
+		} else {
+			$r = false;
 		}
 		return $r;
 	}
-	public function createCheckIn($account,$date,$in_time){
-		// $sql  =  "INSERT INTO `check` (in_time) VALUES (?) WHERE `account`=? AND `date`=?";
-		// $q    =  $this->db->query($sql,array($in_time,$account,$date));
-		$sql  =  "INSERT INTO `check` (`account`,`date`,`in_time`) VALUES (?,?,?)";
-		$q    =  $this->db->query($sql,array($account,$date,$in_time));
-		if($this->db->affected_rows()>0)
-		{
-			$r=true;
-		}else{
-			$r=false;
+
+	public function createCheckIn($account, $date, $in_time) {
+		$sql = 'INSERT INTO `check` (`account`,`date`,`in_time`) VALUES (?,?,?)';
+		$q = $this->db->query($sql, [$account, $date, $in_time]);
+		if ($this->db->affected_rows() > 0) {
+			$r = true;
+		} else {
+			$r = false;
 		}
 		return $r;
 	}
-	public function isCheckInNormal($account,$date,$in_status){
-		if($q->num_rows() > 0){
-			$r = $q->first_row('array');
-		}
-	}
-	public function changeCheckIn($account,$date,$in_status){
 
-	}
-	public function createCheckOut($account,$date,$out_time){
-		// $sql  =  "INSERT INTO `check` (out_time) VALUES (?) WHERE `account`=? AND `date`=?";
-		// $q    =  $this->db->query($sql,array($out_time,$account,$date));
-		$sql  =  "INSERT INTO `check` (`account`,`date`,`out_time`) VALUES (?,?,?)";
-		$q    =  $this->db->query($sql,array($account,$date,$out_time));
-		if($this->db->affected_rows()>0)
-		{
-			$r=true;
-		}else{
-			$r=false;
+	public function isCheckInNormal($in_time, $work_am_start) {
+		// echo '上班打卡:' . strtotime($in_time) . ' 準時上班時間' . strtotime($work_am_start);
+		// $ab = strtotime($in_time) < strtotime($work_am_start);
+		// echo '<br>' . $ab . '<br>';
+		if (strtotime($in_time) < strtotime($work_am_start)) {
+			// echo '正常';
+			$r = true;
+		} else {
+			// echo '異常';
+			$r = false;
 		}
 		return $r;
-
 	}
-	public function isCheckOutNormal($account,$date,$out_status){
 
+	public function changeCheckIn($account, $date, $in_status) {
+		$sql = 'UPDATE `check` SET in_status=?,`timestamp`=? WHERE `account`=? AND `date`=?';
+		$q = $this->db->query($sql, [$in_status, microtime(), $account, $date]);
+		if ($this->db->affected_rows() > 0) {
+			//
+		}
 	}
-	public function changeCheckOut($account,$date,$in_status){
 
+	public function createCheckOut($account, $date, $out_time) {
+		$sql = 'INSERT INTO `check` (`account`,`date`,`out_time`) VALUES (?,?,?)';
+		$q = $this->db->query($sql, [$account, $date, $out_time]);
+		if ($this->db->affected_rows() > 0) {
+			$r = true;
+		} else {
+			$r = false;
+		}
+		return $r;
+	}
+
+	public function isCheckOutNormal($out_time, $work_pm_end) {
+		if (strtotime($out_time) > strtotime($work_pm_end)) {
+			$r = true;
+		} else {
+			$r = false;
+		}
+		return $r;
+	}
+
+	public function changeCheckOut($account, $date, $out_status) {
+		$sql = 'UPDATE `check` SET out_status=?,`timestamp`=? WHERE `account`=? AND `date`=?';
+		$q = $this->db->query($sql, [$out_status, microtime(), $account, $date]);
+		if ($this->db->affected_rows() > 0) {
+			//
+		}
 	}
 
 	/*

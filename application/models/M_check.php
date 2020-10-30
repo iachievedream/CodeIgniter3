@@ -52,9 +52,9 @@ class M_check extends CI_Model {
 		return $r;
 	}
 
-	public function getCheck($account) {
-		$sql = 'SELECT * FROM `check` WHERE account=?';
-		$q = $this->db->query($sql, $account);
+	public function getCheck($account, $date) {
+		$sql = 'SELECT * FROM `check` WHERE `account`=? AND `date`=?';
+		$q = $this->db->query($sql, [$account, $date]);
 		if ($q->num_rows() > 0) {
 			$r = $q->result_array();
 		} else {
@@ -97,8 +97,8 @@ class M_check extends CI_Model {
 	}
 
 	public function createCheckOut($account, $date, $out_time) {
-		$sql = 'INSERT INTO `check` (`account`,`date`,`out_time`) VALUES (?,?,?)';
-		$q = $this->db->query($sql, [$account, $date, $out_time]);
+		$sql = 'UPDATE `check` SET `out_time`=? WHERE `account`=? AND `date`=?';
+		$q = $this->db->query($sql, [$out_time, $account, $date]);
 		if ($this->db->affected_rows() > 0) {
 			$r = true;
 		} else {

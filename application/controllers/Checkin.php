@@ -70,6 +70,9 @@ class Checkin extends CI_Controller {
 		if (empty($this->m_check->getCheck($account, $date))) {
 			$r = $this->m_check->createCheckIn($account, $date, $in_time);
 			if ($r = true) {
+				// 寫入log
+				$this->load->model('m_log');
+				$this->m_log->add($this->router->fetch_class(), $this->router->fetch_method(), $account . '上班打卡成功', '');
 				echo '上班打卡成功';
 			} else {
 				echo '上班打卡失敗';
@@ -86,6 +89,9 @@ class Checkin extends CI_Controller {
 		$this->load->model('m_check');
 		$r = $this->m_check->createCheckOut($account, $date, $out_time);
 		if ($r = true) {
+			// 寫入log
+			$this->load->model('m_log');
+			$this->m_log->add($this->router->fetch_class(), $this->router->fetch_method(), $account . '下班打卡成功', '');
 			echo '下班打卡成功';
 		} else {
 			echo '下班打卡失敗';

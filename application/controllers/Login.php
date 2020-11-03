@@ -20,6 +20,9 @@ class Login extends CI_Controller {
 		$this->load->model('m_login');
 		if ($this->m_login->login($account, $password)) {
 			$this->m_login->getSession($account);
+			// 寫入log
+			$this->load->model('m_log');
+			$this->m_log->add($this->router->fetch_class(), $this->router->fetch_method(), $account . '登入', '');
 		// echo '正確';
 		} else {
 			// echo '錯誤';

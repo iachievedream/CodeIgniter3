@@ -76,4 +76,19 @@ function checkout(){
 		}
 	});
 }
+
+// $.ajax({
+// 		url: '/Checkin/index/',
+// 		type: 'post',
+// 		data: {	},
+// 		dataType: 'json',
+// 		success: function(json) {
+// 			if(json['success']){
+// 				// $(obj).parent('div').remove();
+// 			}
+// 		},
+// 		error: function(xhr, ajaxOptions, thrownError) {
+// 			alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
+// 		}
+// 	});
 </script>
